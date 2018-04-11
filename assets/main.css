@@ -4,14 +4,27 @@ body, html {
 }
 
 body {
-    color: #FFF;
     font-size: 14px;
     font-family: "Courier New", fixed, monospace;
+
+    opacity: .6;
+    z-index: 50;
+    color: #0F0;
+    text-shadow: 2px 1px 3px;
 }
 
 html {
     background: url("../images/scan_lines.gif") repeat;
     background-size: 6px 6px;
+}
+
+p {
+    margin: 0;
+    padding: 4%;
+}
+
+a {
+    color: #0F0;
 }
 
 .frame {
