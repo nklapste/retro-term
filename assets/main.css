@@ -1,0 +1,20 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    color: #FFF;
+    font-size: 14px;
+    font-family: "Courier New", fixed, monospace;
+}
+
+html {
+    background: url("../images/scan_lines.gif") repeat;
+    background-size: 6px 6px;
+}
+
+.frame {
+    background-image: url("../images/crt_frame.png");
+    background-size: 100% 100%;
+}
