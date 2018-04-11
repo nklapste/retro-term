@@ -2,17 +2,43 @@
 <html lang="en">
 <head>
     <title>retro-term</title>
-
     <meta lang="en"/>
     <meta charset="UTF-8">
     <meta name="author" content="Nathan Douglas Klapstein"/>
     <meta name="description" content="Nathan Douglas Klapstein's Retro Terminal">
 
     <link rel="stylesheet" href="assets/main.css">
+
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.14.0/js/jquery.terminal.min.js"></script>
+    <link href="assets/jquery.terminal.css" rel="stylesheet"/>
 </head>
 <body class="frame">
 <div>
-    <p id="content">Test Text</p>
+    <div id="term" style="height: 100%;"></div>
+    <script>
+        jQuery(function ($, undefined) {
+            $('#term').terminal(function (command) {
+                if (command !== '') {
+                    try {
+                        var result = window.eval(command);
+                        if (result !== undefined) {
+                            this.echo(new String(result));
+                        }
+                    } catch (e) {
+                        this.error(new String(e));
+                    }
+                } else {
+                    this.echo('');
+                }
+            }, {
+                greetings: 'Welcome to klapstein.ca type `help` for list of commands',
+                name: 'term',
+                height: 200,
+                prompt: 'kp> '
+            });
+        });
+    </script>
 </div>
 </body>
 </html>
