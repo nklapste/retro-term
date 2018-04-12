@@ -14,31 +14,50 @@
     <link href="assets/jquery.terminal.css" rel="stylesheet"/>
 </head>
 <body class="frame">
-<div>
-    <div id="term" style="height: 100%;"></div>
-    <script>
-        jQuery(function ($, undefined) {
-            $('#term').terminal(function (command) {
-                if (command !== '') {
-                    try {
-                        var result = window.eval(command);
-                        if (result !== undefined) {
-                            this.echo(new String(result));
-                        }
-                    } catch (e) {
-                        this.error(new String(e));
-                    }
-                } else {
-                    this.echo('');
-                }
-            }, {
-                greetings: 'Welcome to klapstein.ca type `help` for list of commands',
-                name: 'term',
-                height: 200,
-                prompt: 'kp> '
+
+        <div id="term" style="overflow: hidden; top: 0px;"></div>
+        <script>
+
+            var height = $( window ).height();
+            var offset = height*0.1
+            height = height - offset;
+
+            $( window ).resize(function() {
+                height = $( window ).height();
+                offset = height*0.1
+                height = height - offset;
+                $('#term').css("top", offset/2);
+                $('#term').css("height", height);
             });
-        });
-    </script>
-</div>
+
+            jQuery(function ($, undefined) {
+                $('#term').terminal(function (command) {
+                    command = command.trim()
+                    if (command !== '') {
+                        if (command === "help") {
+                            this.echo("ls [pathname]\nview [filename]");
+                        } else if (command === "ls") {
+                            this.echo("RESUME.rst")
+                        } else if (command === "view") {
+                            if (command.split(" ")[1] == "RESUME.rst"){
+                                this.echo("HIRE ME")
+                            } else {
+                                this.echo("file not found")
+                            }
+                        } else {
+                            this.echo(command.split(" ")[0]+": command not found")
+                        }
+                    } else {
+                        this.echo('');
+                    }
+                }, {
+                    greetings: 'Welcome to klapstein.ca type `help` for list of commands',
+                    name: 'term',
+                    height: height,
+                    prompt: 'ks> '
+                });
+            });
+        </script>
+
 </body>
 </html>

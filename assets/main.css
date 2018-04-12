@@ -7,7 +7,6 @@ body {
     font-size: 14px;
     font-family: "Courier New", fixed, monospace;
 
-    opacity: .6;
     z-index: 50;
     color: #0F0;
     text-shadow: 2px 1px 3px;
@@ -20,7 +19,6 @@ html {
 
 p {
     margin: 0;
-    padding: 4%;
 }
 
 a {
@@ -30,4 +28,12 @@ a {
 .frame {
     background-image: url("../images/crt_frame.png");
     background-size: 100% 100%;
+}
+
+
+/* custom jquery.terminal settings */
+
+#term {
+    padding-left: 5%;
+    padding-right: 5%;
 }
