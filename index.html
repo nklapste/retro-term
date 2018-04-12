@@ -40,19 +40,7 @@
                 $('#term').terminal(function (command) {
                     command = command.trim()
                     if (command !== '') {
-                        if (command === "help") {
-                            this.echo("ls [pathname]\nview [filename]");
-                        } else if (command === "ls") {
-                            this.echo("RESUME.rst")
-                        } else if (command === "view") {
-                            if (command.split(" ")[1] == "RESUME.rst"){
-                                this.echo("HIRE ME")
-                            } else {
-                                this.echo("file not found")
-                            }
-                        } else {
-                            this.echo(command.split(" ")[0]+": command not found")
-                        }
+                        // todo command parsing
                     } else {
                         this.echo('');
                     }
