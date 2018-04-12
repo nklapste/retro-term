@@ -9,24 +9,30 @@
 
     <link rel="stylesheet" href="assets/main.css">
 
+    <link href="assets/crt.css" rel="stylesheet"/>
+
     <script src="https://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.14.0/js/jquery.terminal.min.js"></script>
     <link href="assets/jquery.terminal.css" rel="stylesheet"/>
 </head>
-<body class="frame">
+<body class="frame crt">
 
-        <div id="term" style="overflow: hidden; top: 0px;"></div>
+        <div id="term" style="overflow: hidden;"></div>
         <script>
 
-            var height = $( window ).height();
-            var offset = height*0.1
+            let height = $(window).height();
+            let offset = height*0.1;
             height = height - offset;
 
+            $('#term').css("top", offset*0.55);
+            $('#term').css("height", height);
+
             $( window ).resize(function() {
-                height = $( window ).height();
-                offset = height*0.1
+                height = $(window).height();
+                offset = height*0.1;
                 height = height - offset;
-                $('#term').css("top", offset/2);
+                // rounding is hard
+                $('#term').css("top", offset*0.55);
                 $('#term').css("height", height);
             });
 
@@ -58,6 +64,5 @@
                 });
             });
         </script>
-
 </body>
 </html>

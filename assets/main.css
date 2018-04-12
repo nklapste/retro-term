@@ -9,7 +9,7 @@ body {
 
     z-index: 50;
     color: #0F0;
-    text-shadow: 2px 1px 3px;
+    text-shadow: 2px 2px 3px;
 }
 
 html {
@@ -30,10 +30,10 @@ a {
     background-size: 100% 100%;
 }
 
-
 /* custom jquery.terminal settings */
 
 #term {
     padding-left: 5%;
     padding-right: 5%;
+    opacity: .7;
 }
