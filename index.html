@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html lang="en-CA">
 <head>
     <title>retro-term</title>
-    <meta lang="en"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="en-CA" />
     <meta charset="UTF-8">
     <meta name="author" content="Nathan Douglas Klapstein"/>
     <meta name="description" content="Nathan Douglas Klapstein's Retro Terminal">
@@ -16,41 +17,39 @@
     <link href="assets/jquery.terminal.css" rel="stylesheet"/>
 </head>
 <body class="frame crt">
+    <div id="term" style="overflow: hidden;"></div>
+    <script>
+        let height = $(window).height();
+        let offset = height*0.1;
+        height = height - offset;
 
-        <div id="term" style="overflow: hidden;"></div>
-        <script>
+        $('#term').css("top", offset*0.55);
+        $('#term').css("height", height);
 
-            let height = $(window).height();
-            let offset = height*0.1;
+        $( window ).resize(function() {
+            height = $(window).height();
+            offset = height*0.1;
             height = height - offset;
-
+            // rounding is hard
             $('#term').css("top", offset*0.55);
             $('#term').css("height", height);
+        });
 
-            $( window ).resize(function() {
-                height = $(window).height();
-                offset = height*0.1;
-                height = height - offset;
-                // rounding is hard
-                $('#term').css("top", offset*0.55);
-                $('#term').css("height", height);
+        jQuery(function ($, undefined) {
+            $('#term').terminal(function (command) {
+                command = command.trim()
+                if (command !== '') {
+                    // todo command parsing
+                } else {
+                    this.echo('');
+                }
+            }, {
+                greetings: 'Welcome to klapstein.ca type `help` for list of commands',
+                name: 'term',
+                height: height,
+                prompt: 'ks> '
             });
-
-            jQuery(function ($, undefined) {
-                $('#term').terminal(function (command) {
-                    command = command.trim()
-                    if (command !== '') {
-                        // todo command parsing
-                    } else {
-                        this.echo('');
-                    }
-                }, {
-                    greetings: 'Welcome to klapstein.ca type `help` for list of commands',
-                    name: 'term',
-                    height: height,
-                    prompt: 'ks> '
-                });
-            });
-        </script>
+        });
+    </script>
 </body>
 </html>
