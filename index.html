@@ -18,7 +18,44 @@
 </head>
 <body class="frame crt">
     <div id="term" style="overflow: hidden;"></div>
+    <script src="assets/bash.js"></script>
     <script>
+
+        var readme = fetch('README.rst').then(response => response.text());
+        var resume = fetch('RESUME.rst').then(response => response.text());
+
+        var emulator = bashEmulator({
+            workingDirectory: '/',
+            fileSystem: {
+                '/': {
+                    type: 'dir',
+                    modified: Date.now()
+                },
+                '/README.rst': {
+                    type: 'file',
+                    modified: Date.now(),
+                    content: readme
+                },
+                '/RESUME.rst': {
+                    type: 'file',
+                    modified: Date.now(),
+                    content: resume
+                },
+                '/home': {
+                    type: 'dir',
+                    modified: Date.now()
+                },
+                '/home/user/journal.txt': {
+                    type: 'file',
+                    modified: Date.now(),
+                    content: 'this is private!'
+                },
+                '/home/user': {
+                    type: 'dir',
+                    modified: Date.now()
+                }
+            }
+        });
         let height = $(window).height();
         let offset = height*0.1;
         height = height - offset;
@@ -37,12 +74,15 @@
 
         jQuery(function ($, undefined) {
             $('#term').terminal(function (command) {
-                command = command.trim()
-                if (command !== '') {
-                    // todo command parsing
-                } else {
-                    this.echo('');
+                var terminal = this;
+                function out(result){
+                    terminal.echo(result);
                 }
+                function error(reason){
+                    terminal.echo(reason);
+                }
+                command = command.trim();
+                emulator.run(command).then(out, error);
             }, {
                 greetings: 'Welcome to klapstein.ca type `help` for list of commands',
                 name: 'term',
