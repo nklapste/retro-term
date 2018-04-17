@@ -156,6 +156,6 @@
     background-size: 100% 2px, 3px 100%;
     pointer-events: none;
 }
-.crt {
-    animation: textShadow 1.6s infinite;
-}
+/*.crt {*/
+    /*animation: textShadow 1.6s infinite;*/
+/*}*/
