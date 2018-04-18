@@ -1,3 +1,31 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-size: 14px;
+    font-family: "Courier New", fixed, monospace;
+    z-index: 50;
+    color: #0F0;
+    text-shadow: 2px 2px 3px;
+}
+html {
+    background: url("../images/scan_lines.gif") repeat;
+    background-size: 6px 6px;
+}
+#term {
+    padding-left: 5%;
+    padding-right: 5%;
+    opacity: 0.7;
+}
+.overlay {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    background-image: url("../images/crt_frame.png");
+    background-size: 100% 100%;
+}
 /* Many thanks to http://aleclownes.com/2017/02/01/crt-display.html for this awesome crt effect!*/
 @keyframes flicker {
     0% {
@@ -156,6 +184,6 @@
     background-size: 100% 2px, 3px 100%;
     pointer-events: none;
 }
-/*.crt {*/
-    /*animation: textShadow 1.6s infinite;*/
-/*}*/
+.crt {
+    animation: textShadow 1.6s infinite;
+}
