@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta charset="UTF-8">
+
+    <title>retro-term</title>
+    <meta name="author" content="Nathan Douglas Klapstein"/>
+    <meta name="description" content="Nathan Douglas Klapstein's Retro Terminal">
+
+    <link rel="stylesheet" href="assets/css/retro-term.css">
+
+    <link href="assets/css/jquery.terminal.css" rel="stylesheet"/>
+
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.14.0/js/jquery.terminal.min.js"></script>
+    <script src="assets/js/bash.js"></script>
+</head>
+<body class="crt">
+    <div id="term" style="overflow: hidden;"></div>
+    <script>
+        let resume = fetch('assets/files/RESUME.rst').then(response => response.text());
+        let emulator = bashEmulator({
+            workingDirectory: '/',
+            fileSystem: {
+                '/': {
+                    type: 'dir',
+                    modified: Date.now()
+                },
+                '/RESUME.rst': {
+                    type: 'file',
+                    modified: Date.now(),
+                    content: resume
+                }
+            }
+        });
+
+        emulator.commands.help = function (env) {
+            let commands = [
+                "ls",
+                "cd",
+                "pwd",
+                "history",
+                "cat",
+                "touch",
+                "mkdir",
+                "mv",
+                "cp",
+                "rm",
+                "rmdir"
+            ];
+            env.output("the following bash commands are available:\n" + commands.join("\n"));
+            env.exit(0);
+        };
+
+        let term = $("#term");
+        let height = $(window).height();
+        let offset = height*0.1;
+        height = height - offset;
+
+        term.css("top", offset*0.55);
+        term.css("height", height);
+
+        $(window).resize(function() {
+            height = $(window).height();
+            offset = height*0.1;
+            height = height - offset;
+            // rounding is hard
+            term.css("top", offset*0.55);
+            term.css("height", height);
+        });
+
+        term.terminal(function (command) {
+            let terminal = this;
+            function out(result){terminal.echo(result)}
+            function error(reason){terminal.echo(reason)}
+            command = command.trim();
+            if (command !== ""){
+                emulator.run(command).then(out, error);
+            } else {
+                this.echo("");
+            }
+        }, {
+            greetings: 'Welcome to klapstein.ca type `help` for list of commands',
+            name: 'term',
+            height: height,
+            prompt: 'ks> '
+        });
+    </script>
+<div class="overlay"></div>
+</body>
+</html>
